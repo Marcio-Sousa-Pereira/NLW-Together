@@ -1,4 +1,6 @@
-import express, { request, response } from 'express';
+import "reflect-metadata";
+import express from 'express';
+import { router } from './routes';
 
 const app = express();
 
@@ -11,16 +13,33 @@ const app = express();
  * patch ===> Alterar uma informação específica 
  */
 
-app.get("/test", (request, response) => {
-    //request: o que entra
-    //response: o que saí 
-    return response.send("Olá nlw");
-});
+/**
+ * Tipo de parâmetros para requisição
+ * Routes params ===> http://localhost:3000/produtos/45455
+ * Query params ===> http://localhost:3000/produtos?name=teclado&description=tecladoAzul
+ * 
+ * body params ===> vem no corpo de request ==> 
+ * body { 
+ *  "name": "teclado",
+ *  "descrtiption": "teclado logitech"
+ * }
+ */
 
-app.post("/test-post", (request, response) => {
-    return response.send("Olá NLW POST VERB")
-})
+import "./database";
 
-//http://localhost:3000
+// app.get("/test", (request, response) => {
+//     //request: o que entra
+//     //response: o que saí 
+//     return response.send("Olá nlw");
+// });
+
+// app.post("/test-post", (request, response) => {
+//     return response.send("Olá NLW POST VERB")
+// })
+
+// //http://localhost:3000
+
+app.use(express.json())
+app.use(router);
 
 app.listen(3000, () => console.log("sesrver is running"))
